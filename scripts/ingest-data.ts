@@ -5,6 +5,8 @@ import { pinecone } from '@/utils/pinecone-client';
 import { CustomPDFLoader } from '@/utils/customPDFLoader';
 import { PINECONE_INDEX_NAME, PINECONE_NAME_SPACE } from '@/config/pinecone';
 import { DirectoryLoader, TextLoader } from 'langchain/document_loaders';
+import { Document } from 'langchain/document';
+import faqs from '../docs/outfile.json';
 
 /* Name of directory to retrieve your files from */
 const filePath = 'docs';
@@ -12,14 +14,10 @@ const filePath = 'docs';
 export const run = async () => {
   try {
     /*load raw docs from all files in the directory */
-    // const directoryLoader = new DirectoryLoader(filePath, {
-    //   '.pdf': (path) => new CustomPDFLoader(path),
-    // });
     const directoryLoader = new DirectoryLoader(filePath, {
-      '.txt': (path) => new TextLoader(path),
+      '.pdf': (path) => new CustomPDFLoader(path),
     });
 
-    // const loader = new PDFLoader(filePath);
     const rawDocs = await directoryLoader.load();
 
     /* Split text into chunks */
@@ -40,7 +38,7 @@ export const run = async () => {
     await PineconeStore.fromDocuments(docs, embeddings, {
       pineconeIndex: index,
       namespace: PINECONE_NAME_SPACE,
-      textKey: 'text',
+      // textKey: 'text',
     });
   } catch (error) {
     console.log('error', error);
@@ -52,3 +50,25 @@ export const run = async () => {
   await run();
   console.log('ingestion complete');
 })();
+
+/*
+  Other ways to ingest data:
+
+
+const docs: Document[] = [];
+    for (let i = 0; i < faqs.length; i++) {
+      let obj = faqs[i];
+      const doc = new Document({
+        metadata: { title: obj.Title, source: obj.Source },
+        pageContent: obj.Content,
+      });
+      console.log(doc);
+      docs.push(doc);
+    }
+
+const directoryLoader = new DirectoryLoader(filePath, {
+      '.txt': (path) => new TextLoader(path),
+    });
+
+const loader = new PDFLoader(filePath);
+*/

@@ -27,7 +27,7 @@ export default function Home() {
   }>({
     messages: [
       {
-        message: 'Hi, what would you like to learn about your docs?',
+        message: 'Hi there, I will try to answer any questions you might have!',
         type: 'apiMessage',
       },
     ],
@@ -165,7 +165,7 @@ export default function Home() {
       <Layout>
         <div className="mx-auto flex flex-col gap-4">
           <h1 className="text-2xl font-bold leading-[1.1] tracking-tighter text-center">
-            Chat With Your Docs
+            Spren FAQ
           </h1>
           <main className={styles.main}>
             <div className={styles.cloud}>
@@ -224,19 +224,35 @@ export default function Home() {
                           >
                             {message.sourceDocs.map((doc, index) => (
                               <div key={`messageSourceDocs-${index}`}>
-                                <AccordionItem value={`item-${index}`}>
+                                <h3>
+                                  <b>Source:</b>{' '}
+                                  <a
+                                    href={doc.metadata.source}
+                                    target="_blank"
+                                    className="underline"
+                                  >
+                                    Read on our website
+                                  </a>
+                                </h3>
+                                {/* <AccordionItem value={`item-${index}`}>
                                   <AccordionTrigger>
-                                    <h3>Source {index + 1}</h3>
                                   </AccordionTrigger>
                                   <AccordionContent>
                                     <ReactMarkdown linkTarget="_blank">
                                       {doc.pageContent}
                                     </ReactMarkdown>
                                     <p className="mt-2">
-                                      <b>Source:</b> {doc.metadata.source}
+                                      <b>Source:</b>{' '}
+                                      <a
+                                        href={`https://${doc.metadata.source}`}
+                                        target="_blank"
+                                        className="underline"
+                                      >
+                                        Read on our website
+                                      </a>
                                     </p>
                                   </AccordionContent>
-                                </AccordionItem>
+                                </AccordionItem> */}
                               </div>
                             ))}
                           </Accordion>
@@ -320,8 +336,8 @@ export default function Home() {
         </div>
         <footer className="m-auto p-4">
           <a href="https://twitter.com/mayowaoshin">
-            Powered by LangChainAI. Based on a template built by Mayo (Twitter:
-            @mayowaoshin).
+            Powered by LangChainAI. Thanks to Mayo (Twitter: @mayowaoshin) for
+            codebase.
           </a>
         </footer>
       </Layout>
