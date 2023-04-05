@@ -226,33 +226,20 @@ export default function Home() {
                               <div key={`messageSourceDocs-${index}`}>
                                 <h3>
                                   <b>Source:</b>{' '}
-                                  <a
-                                    href={doc.metadata.source}
-                                    target="_blank"
-                                    className="underline"
-                                  >
-                                    Read on our website
-                                  </a>
+                                  {doc.metadata.podcastTitle ? (
+                                    doc.metadata.podcastNumber +
+                                    ' ' +
+                                    doc.metadata.podcastTitle
+                                  ) : (
+                                    <a
+                                      href={doc.metadata.source}
+                                      target="_blank"
+                                      className="underline"
+                                    >
+                                      Read More
+                                    </a>
+                                  )}
                                 </h3>
-                                {/* <AccordionItem value={`item-${index}`}>
-                                  <AccordionTrigger>
-                                  </AccordionTrigger>
-                                  <AccordionContent>
-                                    <ReactMarkdown linkTarget="_blank">
-                                      {doc.pageContent}
-                                    </ReactMarkdown>
-                                    <p className="mt-2">
-                                      <b>Source:</b>{' '}
-                                      <a
-                                        href={`https://${doc.metadata.source}`}
-                                        target="_blank"
-                                        className="underline"
-                                      >
-                                        Read on our website
-                                      </a>
-                                    </p>
-                                  </AccordionContent>
-                                </AccordionItem> */}
                               </div>
                             ))}
                           </Accordion>
@@ -343,4 +330,25 @@ export default function Home() {
       </Layout>
     </>
   );
+}
+{
+  /* <AccordionItem value={`item-${index}`}>
+                                  <AccordionTrigger>
+                                  </AccordionTrigger>
+                                  <AccordionContent>
+                                    <ReactMarkdown linkTarget="_blank">
+                                      {doc.pageContent}
+                                    </ReactMarkdown>
+                                    <p className="mt-2">
+                                      <b>Source:</b>{' '}
+                                      <a
+                                        href={`https://${doc.metadata.source}`}
+                                        target="_blank"
+                                        className="underline"
+                                      >
+                                        Read on our website
+                                      </a>
+                                    </p>
+                                  </AccordionContent>
+                                </AccordionItem> */
 }
